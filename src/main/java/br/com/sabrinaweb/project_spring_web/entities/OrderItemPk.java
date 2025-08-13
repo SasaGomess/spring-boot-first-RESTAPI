@@ -1,5 +1,6 @@
 package br.com.sabrinaweb.project_spring_web.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 @Embeddable
 public class OrderItemPk implements Serializable {
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;

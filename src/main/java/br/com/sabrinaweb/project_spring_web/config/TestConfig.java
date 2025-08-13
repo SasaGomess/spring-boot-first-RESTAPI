@@ -1,14 +1,8 @@
 package br.com.sabrinaweb.project_spring_web.config;
 
-import br.com.sabrinaweb.project_spring_web.entities.Category;
-import br.com.sabrinaweb.project_spring_web.entities.Order;
-import br.com.sabrinaweb.project_spring_web.entities.Product;
-import br.com.sabrinaweb.project_spring_web.entities.User;
+import br.com.sabrinaweb.project_spring_web.entities.*;
 import br.com.sabrinaweb.project_spring_web.entities.enums.OrderStatus;
-import br.com.sabrinaweb.project_spring_web.repositories.CategoryRepository;
-import br.com.sabrinaweb.project_spring_web.repositories.OrderRepository;
-import br.com.sabrinaweb.project_spring_web.repositories.ProductRepository;
-import br.com.sabrinaweb.project_spring_web.repositories.UserRepository;
+import br.com.sabrinaweb.project_spring_web.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +22,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -68,5 +64,12 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(List.of(u1, u2));
         orderRepository.saveAll(List.of(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(List.of(oi1, oi2, oi3, oi4));
     }
 }
