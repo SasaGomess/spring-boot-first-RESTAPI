@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tb_order")
@@ -88,7 +89,12 @@ public class Order implements Serializable {
     public void setPayment(Payment payment) {
         this.payment = payment;
     }
-
+    public Double getTotal(){
+        return items.stream()
+                .map(OrderItem::getSubTotal)
+                .mapToDouble(Double::doubleValue)
+                .sum();
+    }
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
