@@ -5,6 +5,7 @@ import br.com.sabrinaweb.project_spring_web.entities.Product;
 import br.com.sabrinaweb.project_spring_web.repositories.ProductRepository;
 import br.com.sabrinaweb.project_spring_web.services.exceptions.DataBaseException;
 import br.com.sabrinaweb.project_spring_web.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -55,5 +56,31 @@ public class ProductService {
         }catch (DataIntegrityViolationException e){
             throw new DataBaseException(e.getMessage());
         }
+    }
+    public Product update(Long id, Product product){
+        try {
+            Set<Category> categoriesFound = new HashSet<>();
+
+            Product entity = repository.getReferenceById(id);
+            updateData(entity, product);
+
+            for (Category category : product.getCategories()){
+                Category categoryToUpdate = categoryService.findById(category.getId());
+                categoriesFound.add(categoryToUpdate);
+            }
+
+            entity.getCategories().clear();
+            entity.getCategories().addAll(categoriesFound);
+
+            return repository.save(entity);
+        }catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
+    }
+    private void updateData(Product entity, Product product){
+        entity.setName(product.getName());
+        entity.setDescription(product.getDescription());
+        entity.setUrl(product.getUrl());
+        entity.setPrice(product.getPrice());
     }
 }
