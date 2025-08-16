@@ -35,4 +35,9 @@ public class ProductResource {
                 .toUri();
         return ResponseEntity.created(uri).body(product);
     }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

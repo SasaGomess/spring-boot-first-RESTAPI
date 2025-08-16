@@ -3,7 +3,10 @@ package br.com.sabrinaweb.project_spring_web.services;
 import br.com.sabrinaweb.project_spring_web.entities.Category;
 import br.com.sabrinaweb.project_spring_web.entities.Product;
 import br.com.sabrinaweb.project_spring_web.repositories.ProductRepository;
+import br.com.sabrinaweb.project_spring_web.services.exceptions.DataBaseException;
+import br.com.sabrinaweb.project_spring_web.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -40,5 +43,17 @@ public class ProductService {
             product.getCategories().add(category);
         }
         return repository.save(product);
+    }
+
+    public void delete(Long id){
+        try {
+            if (!repository.existsById(id)){
+                throw new ResourceNotFoundException(id);
+            } else {
+                repository.deleteById(id);
+            }
+        }catch (DataIntegrityViolationException e){
+            throw new DataBaseException(e.getMessage());
+        }
     }
 }
