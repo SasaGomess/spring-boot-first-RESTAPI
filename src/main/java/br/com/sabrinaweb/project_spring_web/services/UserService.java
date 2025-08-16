@@ -4,6 +4,7 @@ import br.com.sabrinaweb.project_spring_web.entities.User;
 import br.com.sabrinaweb.project_spring_web.repositories.UserRepository;
 import br.com.sabrinaweb.project_spring_web.services.exceptions.DataBaseException;
 import br.com.sabrinaweb.project_spring_web.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,14 +39,18 @@ public class UserService {
             else {
                 repository.deleteById(id);
             }
-        }catch (DataIntegrityViolationException e ){
+        }catch (DataIntegrityViolationException e){
             throw new DataBaseException(e.getMessage());
         }
     }
     public User update(Long id, User user){
-        User entity = repository.getReferenceById(id);
-        updateData(entity, user);
-        return repository.save(entity);
+        try {
+            User entity = repository.getReferenceById(id);
+            updateData(entity, user);
+            return repository.save(entity);
+        }catch (EntityNotFoundException e ){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, User user) {
