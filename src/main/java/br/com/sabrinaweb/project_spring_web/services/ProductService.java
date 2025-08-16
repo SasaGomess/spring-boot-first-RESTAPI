@@ -28,7 +28,8 @@ public class ProductService {
     }
 
     public Product findById(Long id){
-        return repository.findById(id).get();
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
     public Product insert(Product product){
         Set<Category> categoriesFound = new HashSet<>();
