@@ -2,6 +2,7 @@ package br.com.sabrinaweb.project_spring_web.services;
 
 import br.com.sabrinaweb.project_spring_web.entities.User;
 import br.com.sabrinaweb.project_spring_web.repositories.UserRepository;
+import br.com.sabrinaweb.project_spring_web.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class UserService {
     }
 
     public User findById(Long id){
-        return repository.findById(id).get();
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
     public User insert (User user){
         return repository.save(user);

@@ -35,7 +35,6 @@ public class Order implements Serializable {
     private Payment payment;
 
     public Order() {
-
     }
 
     public Order(Long id, Instant moment, User client, OrderStatus orderStatus) {
