@@ -26,9 +26,6 @@ public class OrderService {
     @Autowired
     public ProductService productService;
 
-    @Autowired
-    public OrderItemRepository orderItemRepository;
-
     public List<Order> findAll(){
         return repository.findAll();
     }
