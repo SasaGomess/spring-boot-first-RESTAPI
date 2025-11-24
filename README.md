@@ -4,9 +4,9 @@ Uma API REST construída com Spring Boot focada no gerenciamento de usuários, p
 
 ## 🛍️ Sobre o Projeto
 
-Flow Orders é uma API que simula um sistema de pedidos, permitindo consultar usuários, produtos, categorias e pedidos — além de executar operações CRUD completas nas principais entidades.
+Flow Orders é uma API que simula um sistema de pedidos, permitindo consultar usuários, produtos, categorias e pedidos. Além de executar operações CRUD completas nas principais entidades.
 
-O projeto foi desenvolvido para praticar conceitos fundamentais de backend com Java + Spring Boot, incluindo:
+O projeto foi desenvolvido para praticar conceitos fundamentais Spring Boot, Spring Data JPA e Spring Web, incluindo:
 
 - Arquitetura em camadas (resource → service → repository)
 
