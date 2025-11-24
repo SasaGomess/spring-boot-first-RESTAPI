@@ -31,6 +31,8 @@ O projeto foi desenvolvido para praticar conceitos fundamentais de backend com J
 - H2 (em memória no profile: test)
 
 - Maven (gerenciador de dependências)
+  
+- Postman (Teste de endpoints)
 
 ## 🏛️ Arquitetura do Sistema
 
